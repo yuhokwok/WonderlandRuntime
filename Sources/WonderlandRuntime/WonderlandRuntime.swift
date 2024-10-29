@@ -6,8 +6,8 @@ import SwiftUI
 import RealityKit
 import ARKit
 
-struct WonderlandRuntimeView : View {
-    var body : some View {
+public struct WonderlandRuntimeView : View {
+    public var body : some View {
         VStack  {
             Text("Hello Wonderland")
         }
