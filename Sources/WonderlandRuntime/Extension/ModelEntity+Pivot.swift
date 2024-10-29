@@ -11,13 +11,13 @@ import RealityKit
 
 public extension ModelEntity {
     
-    public enum PivotPosition {
+    enum PivotPosition {
         case top
         case center
         case bottom
     }
     
-    public func wrapEntityAndSetPivotPosition(to targetPosition: PivotPosition) -> ModelEntity {
+    func wrapEntityAndSetPivotPosition(to targetPosition: PivotPosition) -> ModelEntity {
         setPivotPosition(to: targetPosition, animated: false)
         
         let entity = ModelEntity()

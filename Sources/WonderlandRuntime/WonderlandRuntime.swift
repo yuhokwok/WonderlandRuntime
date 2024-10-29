@@ -24,11 +24,12 @@ public struct WonderlandRuntimeView : View {
     
     public var body : some View {
         VStack  {
-            if isReady {
-                Text("Hello Wonderland ")
-                TextEditor(text: Binding(get: {
-                    "\(documentHandler?.project)"
-                }, set: { _ in }))
+            if let documentHandler = self.documentHandler {
+//                Text("Hello Wonderland ")
+//                TextEditor(text: Binding(get: {
+//                    "\(documentHandler?.project)"
+//                }, set: { _ in }))
+                RuntimeContainer(documentHandler: documentHandler)
             } else {
                 Text("No Wonderland Loaded")
             }
@@ -62,6 +63,26 @@ protocol RuntimeViewControllerDelegate {
 class RuntimeViewController : UIViewController {
     var delegate : RuntimeViewControllerDelegate?
     var project : Project?
+    
+    
+    
+    override func loadView() {
+        super.loadView()
+            let view : ARView
+#if !targetEnvironment(simulator)
+                print("Wonderland::ARViewManager::checkout::runtime")
+                view = ARView(frame: .zero, cameraMode: .ar, automaticallyConfigureSession: true)
+                view.environment.background = .cameraFeed()
+#else
+                view = ARView(frame: .zero)
+                view.environment.background = .color(.white)
+#endif
+        self.view.addSubview(view)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
 
 
@@ -69,12 +90,12 @@ struct RuntimeContainer : UIViewControllerRepresentable {
     
     var documentHandler : DocumentHandler
     
-    @Binding var num : Int
-    @Binding var showAnimation : Bool
-    
+//    @Binding var num : Int
+//    @Binding var showAnimation : Bool
+//    
     class Coordinator : NSObject, RuntimeViewControllerDelegate {
         func receivedEvent(num: Int) {
-            parent.showAnimation.toggle()
+//            parent.showAnimation.toggle()
         }
         
         
@@ -87,11 +108,11 @@ struct RuntimeContainer : UIViewControllerRepresentable {
         
         
         func updateUserCount(count: Int) {
-            if count >= 1 {
-                parent.num = 2
-            } else {
-                parent.num = 1
-            }
+//            if count >= 1 {
+//                parent.num = 2
+//            } else {
+//                parent.num = 1
+//            }
         }
         
     }
@@ -101,14 +122,15 @@ struct RuntimeContainer : UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> RuntimeViewController {
-        let storyboard = UIStoryboard(name: "Runtime", bundle: nil)
+//        let storyboard = UIStoryboard(name: "Runtime", bundle: nil)
+//        
+//        let vc = storyboard.instantiateViewController(withIdentifier: "Runtime")
+//        
+//        guard let runtimeVC = vc as? RuntimeViewController else {
+//            fatalError()
+//        }
         
-        let vc = storyboard.instantiateViewController(withIdentifier: "Runtime")
-        
-        guard let runtimeVC = vc as? RuntimeViewController else {
-            fatalError()
-        }
-        
+        let runtimeVC = RuntimeViewController()
         runtimeVC.delegate = context.coordinator
         runtimeVC.project = documentHandler.project
         

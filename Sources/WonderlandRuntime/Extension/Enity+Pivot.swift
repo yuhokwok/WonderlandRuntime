@@ -15,23 +15,23 @@ public extension Entity {
     //2rd parant translate
     
     
-    public var scaleEntity : Entity? {
+    var scaleEntity : Entity? {
         return self
     }
     
-    public var offsetEntity : Entity? {
+    var offsetEntity : Entity? {
         return self.parent
     }
     
-    public var rotationEntity : Entity? {
+    var rotationEntity : Entity? {
         return self.parent?.parent
     }
     
-    public var controlEntity : Entity? {
+    var controlEntity : Entity? {
         return self.parent?.parent?.parent
     }
     
-    public var translateEntity : Entity? {
+    var translateEntity : Entity? {
         return self.parent?.parent?.parent?.parent
     }
     
