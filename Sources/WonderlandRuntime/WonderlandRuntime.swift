@@ -29,21 +29,14 @@ public struct WonderlandRuntimeView : View {
             }
         }
         .onAppear {
-            DispatchQueue.main.async {
-                if let url = url {
-                    let document = WonderlandProject(fileURL: resolved(url))
-                    document.open(completionHandler: {
-                        isReady in
-                        
-                        //self.documentHandler = DocumentHandler(document: document)
-                        
-                        //self.isReady = true
-                        print("\(isReady)")
-                        
-                    })
-                    
+            if let url = url {
+                let document = WonderlandProject(fileURL: resolved(url))
+                Task {
+                    let isReady = await document.open()
+                    print("\(isReady)")
                 }
             }
+            
         }
     }
     
@@ -89,7 +82,7 @@ struct RuntimeContainer : UIViewControllerRepresentable {
             self.parent = parent
         }
         
-
+        
         
         @MainActor func updateUserCount(count: Int) {
             if count >= 1 {
