@@ -16,8 +16,12 @@ public struct WonderlandRuntimeView : View {
     var url : URL?
     @State var documentHandler : DocumentHandler? = nil
     
-    public init(name : String) {
-        url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
+    public init(name : String, isXcode : Bool = true) {
+        if isXcode {
+            url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
+        } else {
+            url = Bundle.main.bundleURL.appending(path: "My Wonderland.wonderlandproj")
+        }
     }
     
     public var body : some View {
@@ -78,7 +82,7 @@ struct RuntimeContainer : UIViewControllerRepresentable {
     @Binding var showAnimation : Bool
     
     class Coordinator : NSObject, RuntimeViewControllerDelegate {
-        @MainActor func receivedEvent(num: Int) {
+        func receivedEvent(num: Int) {
             parent.showAnimation.toggle()
         }
         
@@ -91,7 +95,7 @@ struct RuntimeContainer : UIViewControllerRepresentable {
         
         
         
-        @MainActor func updateUserCount(count: Int) {
+        func updateUserCount(count: Int) {
             if count >= 1 {
                 parent.num = 2
             } else {

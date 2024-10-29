@@ -23,7 +23,7 @@ class BlockRunner : Initializable {
         return T.init()
     }
     
-    @MainActor required init() { }
+    required init() { }
     
     /// Load Block Content
     /// - Parameter block: A Block Object (Constant)
