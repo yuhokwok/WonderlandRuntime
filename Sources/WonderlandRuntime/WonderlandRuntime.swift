@@ -11,14 +11,21 @@ import UIKit
 public struct WonderlandRuntimeView : View {
     
     var url : URL?
+    var documentHandler : DocumentHandler?
     
     public init(name : String) {
         url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
+    
+        if let url = url {
+            let document = WonderlandProject(fileURL: url)
+            self.documentHandler = DocumentHandler(document: document)
+        }
+        
     }
     
     public var body : some View {
         VStack  {
-            if let url = url {
+            if let url = url, let documentHandler = self.documentHandler {
                 Text("Hello Wonderland")
             } else {
                 Text("No Wonderland Loaded")
