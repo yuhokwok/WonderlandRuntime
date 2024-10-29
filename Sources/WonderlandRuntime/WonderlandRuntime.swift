@@ -23,7 +23,10 @@ public struct WonderlandRuntimeView : View {
     public var body : some View {
         VStack  {
             if isReady {
-                Text("Hello Wonderland")
+                Text("Hello Wonderland ")
+                TextEditor(text: Binding(get: {
+                    "\(documentHandler?.project)"
+                }, set: { _ in }))
             } else {
                 Text("No Wonderland Loaded")
             }
@@ -32,7 +35,7 @@ public struct WonderlandRuntimeView : View {
             if let url = url {
                 var document = WonderlandProject(fileURL: url)
                 document.open(completionHandler: {
-                    _ in
+                    isReady = $0
                 })
 //                Task {
 //                    let isReady = await document.open()
