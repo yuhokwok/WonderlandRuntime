@@ -6,7 +6,7 @@ protocol Initializable {
 }
 
 
-class BlockRunner : @preconcurrency Initializable {
+class BlockRunner : Initializable {
     
     var param = [String : Any]()
     

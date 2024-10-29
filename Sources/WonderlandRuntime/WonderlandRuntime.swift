@@ -77,7 +77,7 @@ struct RuntimeContainer : UIViewControllerRepresentable {
     @Binding var num : Int
     @Binding var showAnimation : Bool
     
-    class Coordinator : NSObject, @preconcurrency RuntimeViewControllerDelegate {
+    class Coordinator : NSObject, RuntimeViewControllerDelegate {
         @MainActor func receivedEvent(num: Int) {
             parent.showAnimation.toggle()
         }
