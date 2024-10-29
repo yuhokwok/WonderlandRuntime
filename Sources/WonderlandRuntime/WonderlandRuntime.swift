@@ -35,6 +35,7 @@ public struct WonderlandRuntimeView : View {
             if let url = url {
                 var document = WonderlandProject(fileURL: url)
                 document.open(completionHandler: {
+                    self.documentHandler = DocumentHandler(document: document)
                     isReady = $0
                 })
 //                Task {
