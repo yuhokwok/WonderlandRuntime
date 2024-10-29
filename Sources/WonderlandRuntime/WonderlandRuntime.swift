@@ -31,7 +31,9 @@ public struct WonderlandRuntimeView : View {
         .onAppear {
             if let url = url {
                 var document = WonderlandProject(fileURL: url)
-                document.open()
+                document.open(completionHandler: {
+                    _ in
+                })
 //                Task {
 //                    let isReady = await document.open()
 //                    print("\(isReady)")
