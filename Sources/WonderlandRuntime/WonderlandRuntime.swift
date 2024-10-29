@@ -13,7 +13,7 @@ public struct WonderlandRuntimeView : View {
     var url : URL?
     
     public init(name : String) {
-        url = Bundle.main.url(forResource: name, withExtension: "wonderland.proj")
+        url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
     }
     
     public var body : some View {
