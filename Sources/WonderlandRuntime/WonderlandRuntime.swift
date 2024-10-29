@@ -13,15 +13,13 @@ public struct WonderlandRuntimeView : View {
     
     @State var isReady : Bool = false
     
-    var url : URL?
+    var archiveURL : URL?
+    var unarchiveURL : URL?
     @State var documentHandler : DocumentHandler? = nil
     
-    public init(name : String, isXcode : Bool = true) {
-        if isXcode {
-            url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
-        } else {
-            url = Bundle.main.bundleURL.appending(path: "\(name).wonderlandproj")
-        }
+    public init(name : String) {
+        archiveURL = Bundle.main.url(forResource: name, withExtension: "wonderlandz")
+        unarchiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("My Wonderland.wonderlandproject")
     }
     
     public var body : some View {
@@ -36,8 +34,11 @@ public struct WonderlandRuntimeView : View {
             }
         }
         .onAppear {
-            if let url = url {
-                var document = WonderlandProject(fileURL: url)
+            
+            
+            if let url = archiveURL, let durl = unarchiveURL {
+                ArchiveManager.unzipFile(at: url, to: durl)
+                var document = WonderlandProject(fileURL: durl)
                 document.open(completionHandler: {
                     self.documentHandler = DocumentHandler(document: document)
                     isReady = $0
@@ -49,16 +50,6 @@ public struct WonderlandRuntimeView : View {
             }
             
         }
-    }
-    
-    func resolved(_ url : URL) -> URL {
-        var path = url.absoluteString
-        path = path.replacingOccurrences(of: "file:///", with: "/")
-        if path.hasSuffix("/") {
-            path = String(path.dropLast())
-            return URL(filePath: path)
-        }
-        return url
     }
 }
 
