@@ -19,7 +19,7 @@ public struct WonderlandRuntimeView : View {
     
     public init(name : String) {
         archiveURL = Bundle.main.url(forResource: name, withExtension: "wonderlandz")
-        unarchiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("My Wonderland.wonderlandproject")
+        unarchiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     }
     
     public var body : some View {
