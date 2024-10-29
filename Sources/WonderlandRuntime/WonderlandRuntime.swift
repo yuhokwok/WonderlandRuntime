@@ -7,6 +7,11 @@ import RealityKit
 import ARKit
 
 public struct WonderlandRuntimeView : View {
+    
+    public init() {
+        
+    }
+    
     public var body : some View {
         VStack  {
             Text("Hello Wonderland")
