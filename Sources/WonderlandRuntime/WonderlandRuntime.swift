@@ -29,17 +29,20 @@ public struct WonderlandRuntimeView : View {
             }
         }
         .onAppear {
-            if let url = url {
-                let document = WonderlandProject(fileURL: resolved(url))
-                document.open(completionHandler: {
-                    isReady in
+            DispatchQueue.main.async {
+                if let url = url {
+                    let document = WonderlandProject(fileURL: resolved(url))
+                    document.open(completionHandler: {
+                        isReady in
+                        
+                        //self.documentHandler = DocumentHandler(document: document)
+                        
+                        //self.isReady = true
+                        print("\(isReady)")
+                        
+                    })
                     
-                    //self.documentHandler = DocumentHandler(document: document)
-                    DispatchQueue.main.async {
-                        self.isReady = true
-                    }
-                })
-                
+                }
             }
         }
     }
