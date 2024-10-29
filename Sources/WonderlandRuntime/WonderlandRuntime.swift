@@ -10,28 +10,34 @@ import UIKit
 @MainActor
 public struct WonderlandRuntimeView : View {
     
+    
+    @State var isReady : Bool = false
+    
     var url : URL?
-    var documentHandler : DocumentHandler?
+    @State var documentHandler : DocumentHandler? = nil
     
     public init(name : String) {
         url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
-    
-        if let url = url {
-            let document = WonderlandProject(fileURL: resolved(url))
-            self.documentHandler = DocumentHandler(document: document)
-        }
-        
     }
     
     public var body : some View {
         VStack  {
-            if let url = url, let documentHandler = self.documentHandler {
-                
-                let absoluteString = url.absoluteString
-                
+            if isReady {
                 Text("Hello Wonderland")
             } else {
                 Text("No Wonderland Loaded")
+            }
+        }
+        .onAppear {
+            if let url = url {
+                let document = WonderlandProject(fileURL: resolved(url))
+                document.open(completionHandler: {
+                    isReady in
+                    
+                    self.documentHandler = DocumentHandler(document: document)
+                    self.isReady = true
+                })
+                
             }
         }
     }
