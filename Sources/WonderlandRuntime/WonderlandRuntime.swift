@@ -35,7 +35,9 @@ public struct WonderlandRuntimeView : View {
                     isReady in
                     
                     self.documentHandler = DocumentHandler(document: document)
-                    self.isReady = true
+                    DispatchQueue.main.async {
+                        self.isReady = true
+                    }
                 })
                 
             }
