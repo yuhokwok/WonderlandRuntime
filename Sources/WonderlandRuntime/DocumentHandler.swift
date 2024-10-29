@@ -15,13 +15,16 @@ class DocumentHandler {
     var editorInfo : ProjectEditorInfo
     
     init?(document : WonderlandProject) {
+        print("try load doc")
         self.document = document
 
         if document.project != nil, document.editorInfo != nil {
+            print("load ok")
             self.project = document.project!
             self.editorInfo = document.editorInfo!
             //get a copy of the project
         } else {
+            print("can't load")
             return nil
         }
     }
