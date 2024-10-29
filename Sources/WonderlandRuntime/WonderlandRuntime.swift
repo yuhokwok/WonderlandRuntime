@@ -30,7 +30,8 @@ public struct WonderlandRuntimeView : View {
         }
         .onAppear {
             if let url = url {
-                let document = WonderlandProject(fileURL: url)
+                var document = WonderlandProject(fileURL: url)
+                document.open()
 //                Task {
 //                    let isReady = await document.open()
 //                    print("\(isReady)")
