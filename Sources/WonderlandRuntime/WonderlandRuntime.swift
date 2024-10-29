@@ -17,7 +17,7 @@ public struct WonderlandRuntimeView : View {
         url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
     
         if let url = url {
-            let document = WonderlandProject(fileURL: url)
+            let document = WonderlandProject(fileURL: resolved(url))
             self.documentHandler = DocumentHandler(document: document)
         }
         
@@ -26,11 +26,24 @@ public struct WonderlandRuntimeView : View {
     public var body : some View {
         VStack  {
             if let url = url, let documentHandler = self.documentHandler {
+                
+                let absoluteString = url.absoluteString
+                
                 Text("Hello Wonderland")
             } else {
                 Text("No Wonderland Loaded")
             }
         }
+    }
+    
+    func resolved(_ url : URL) -> URL {
+        var path = url.absoluteString
+        path = path.replacingOccurrences(of: "file:///", with: "/")
+        if path.hasSuffix("/") {
+            path = String(path.dropLast())
+            return URL(filePath: path)
+        }
+        return url
     }
 }
 
