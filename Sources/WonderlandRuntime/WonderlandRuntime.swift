@@ -20,7 +20,7 @@ public struct WonderlandRuntimeView : View {
         if isXcode {
             url = Bundle.main.url(forResource: name, withExtension: "wonderlandproj")
         } else {
-            url = Bundle.main.bundleURL.appending(path: "My Wonderland.wonderlandproj")
+            url = Bundle.main.bundleURL.appending(path: "\(name).wonderlandproj")
         }
     }
     
