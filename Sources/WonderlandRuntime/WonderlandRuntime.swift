@@ -23,11 +23,8 @@ public struct WonderlandRuntimeView : View {
     public var body : some View {
         VStack  {
             if let documentHandler = self.documentHandler {
-//                Text("Hello Wonderland ")
-//                TextEditor(text: Binding(get: {
-//                    "\(documentHandler?.project)"
-//                }, set: { _ in }))
                 RuntimeContainer(documentHandler: documentHandler)
+                    .ignoresSafeArea()
             } else {
                 VStack {
                     Text("Preparing your Wonderland...")
@@ -36,8 +33,6 @@ public struct WonderlandRuntimeView : View {
             }
         }
         .onAppear {
-            
-            
             if let url = archiveURL, let durl = unarchiveURL {
                 ArchiveManager.unzipFile(at: url, to: durl)
                 let document = WonderlandProject(fileURL: durl)
@@ -46,7 +41,6 @@ public struct WonderlandRuntimeView : View {
                     isReady = $0
                 })
             }
-            
         }
     }
 }
