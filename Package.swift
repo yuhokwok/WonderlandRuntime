@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", .upToNextMajor(from: "0.9.0")),
-        .package(url: "https://github.com/maxxfrazer/FocusEntity.git", .upToNextMajor(from: "2.5.1")),
+        .package(url: "https://github.com/yuhokwok/FocusEntity.git", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/maxxfrazer/RealityGeometries.git", .upToNextMajor(from: "1.1.2")),
     ],
     targets: [
