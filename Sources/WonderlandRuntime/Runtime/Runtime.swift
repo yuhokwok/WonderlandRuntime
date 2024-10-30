@@ -278,7 +278,7 @@ class Runtime : NSObject {
         }
         
         
-        self.sceneEventUpdateSub = self.arView?.scene.subscribe(to: SceneEvents.Update.self, { [self]
+        self.sceneEventUpdateSub = self.arView?.scene.subscribe(to: SceneEvents.Update.self, { //[self]
             event in
 
         })

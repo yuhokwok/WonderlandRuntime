@@ -47,7 +47,6 @@ public struct WonderlandRuntimeView : View {
                         document.open(completionHandler: {
                             self.documentHandler = DocumentHandler(document: document)
                             isReady = $0
-                            print("\(self.documentHandler?.project)")
                         })
                     }
                 }
