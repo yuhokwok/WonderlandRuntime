@@ -29,21 +29,30 @@ public struct WonderlandRuntimeView : View {
                     .ignoresSafeArea()
             } else {
                 VStack {
-                    Text("Preparing your Wonderland...")
+                    
+                    Text("Made with Wonderland")
                     ProgressView().progressViewStyle(.circular)
                 }
             }
         }
         .onAppear {
-            if let url = archiveURL, let durl = unarchiveURL, let projurl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "\(name).wonderlandproj") {
-                ArchiveManager.unzipFile(at: url, to: durl)
-                let document = WonderlandProject(fileURL: projurl)
-                document.open(completionHandler: {
-                    self.documentHandler = DocumentHandler(document: document)
-                    isReady = $0
-                    print("\(self.documentHandler?.project)")
-                })
-            }
+            
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {
+                _ in
+                
+                DispatchQueue.main.async {
+                    if let url = archiveURL, let durl = unarchiveURL, let projurl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "\(name).wonderlandproj") {
+                        ArchiveManager.unzipFile(at: url, to: durl)
+                        let document = WonderlandProject(fileURL: projurl)
+                        document.open(completionHandler: {
+                            self.documentHandler = DocumentHandler(document: document)
+                            isReady = $0
+                            print("\(self.documentHandler?.project)")
+                        })
+                    }
+                }
+            })
+
         }
     }
 }
