@@ -141,7 +141,7 @@ class Runtime : NSObject {
                     for block in scene.blocks {
                         let className = "\(block.className)Block"
                         print("Wonderland::Runtime::Creating: \(className)")
-                        if let blockClass = Bundle.main.classNamed("Reality_Builder.\(className)")  {
+                        if let blockClass = Bundle.main.classNamed("WonderlandRuntime.\(className)")  {
                             if let blockRunner = Runtime.shared.initBlockRunner(classType: blockClass) {
                                 blockRunner.loadBlock(block: block, runtime: self)
                                 if let blockRunner = blockRunner as? USDZObjectBlock {
@@ -242,7 +242,7 @@ class Runtime : NSObject {
                 for block in scene.blocks {
                     let className = "\(block.className)Block"
                     print("Wonderland::Runtime::Creating: \(className)")
-                    if let blockClass = Bundle.main.classNamed("Reality_Builder.\(className)")  {
+                    if let blockClass = Bundle.main.classNamed("WonderlandRuntime.\(className)")  {
                         if let blockRunner = Runtime.shared.initBlockRunner(classType: blockClass) {
                             blockRunner.loadBlock(block: block, runtime: self)
                             self.blockRunners.append(blockRunner)
